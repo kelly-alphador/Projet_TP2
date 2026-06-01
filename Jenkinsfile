@@ -37,11 +37,13 @@ pipeline {
         }
     }
     post {
-        failure {
-            echo 'Pipeline echoue !'
-        }
-        success {
-            echo 'Pipeline termine avec succes !'
-        }
+    failure {
+        emailext body: "Le build #${BUILD_NUMBER} a echoue. Verifiez les logs.",
+                 subject: "Jenkins - Build echoue",
+                 to: 'kellyalphador@gmail.com'
     }
+    success {
+        echo 'Pipeline termine avec succes !'
+    }
+}
 }
